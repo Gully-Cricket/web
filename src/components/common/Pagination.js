@@ -2,27 +2,26 @@ import React from 'react';
 import _ from 'lodash';
 
 const Pagination = (props) => {
-	const {total, perPage, page, onPageChange, onPageSizeChange} = props;
-	const pageCount                            = total === 0 ? 1 : Math.ceil(total / perPage);
-	let pages                                  = _.range(0, pageCount);
+	const {pager, total, onPagerChange} = props;
+	const pageCount                     = total === 0 ? 1 : Math.ceil(total / pager.perPage);
+	let pages                           = _.range(0, pageCount);
 
 	const handlePageChange = (e) => {
-		if(Number(e.target.innerHTML) !== (page + 1)) {
-			onPageChange(Number(e.target.innerHTML) - 1);
+		if(Number(e.target.innerHTML) !== (pager.page + 1)) {
+			onPagerChange({page: (Number(e.target.innerHTML) - 1), perPage: pager.perPage});
 		}
 	}
 
 	const handlePageSizeChange = (e) => {
-		console.log(Number(e.target.value));
-		onPageSizeChange(Number(e.target.value));
+		onPagerChange({page: 0, perPage: Number(e.target.value)});
 	}
 
-	const prev = (e) => {
-		onPageChange(page - 1);
+	const prev = () => {
+		onPagerChange({page: pager.page - 1, perPage: pager.perPage});
 	}
 
-	const next = (e) => {
-		onPageChange(page + 1);
+	const next = () => {
+		onPagerChange({page: pager.page + 1, perPage: pager.perPage});
 	}
 
 	return (
@@ -30,7 +29,7 @@ const Pagination = (props) => {
 		<div className={"d-flex justify-content-center"}>
 			<label style={{width: '70px'}} className={"mt-2 mb-0"}>Per Page</label>
 			<select style={{width: '65px'}} className="form-control flex-1"
-			        onChange={handlePageSizeChange} defaultValue={perPage}>
+			        onChange={handlePageSizeChange} defaultValue={pager.perPage}>
 				<option value={10}>10</option>
 				<option value={20}>20</option>
 				<option value={50}>50</option>
@@ -40,17 +39,17 @@ const Pagination = (props) => {
 		</div>
 
 		<div className="btn-group">
-			<button className="btn btn-primary" disabled={page === 0} onClick={prev}>
+			<button className="btn btn-primary" disabled={pager.page === 0} onClick={prev}>
 				<i className="material-icons f-12"> arrow_left </i>
 			</button>
-			{pages.map(_page => (
-			<button key={_page}
+			{pages.map(page => (
+			<button key={page}
 			        onClick={handlePageChange}
-			        className={`btn ${_page === page ? 'btn-primary' : 'btn-outline-primary'}`}>
-				{_page + 1}
+			        className={`btn ${page === pager.page ? 'btn-primary' : 'btn-outline-primary'}`}>
+				{page + 1}
 			</button>
 			))}
-			<button className="btn btn-primary" disabled={pageCount === page + 1} onClick={next}>
+			<button className="btn btn-primary" disabled={pageCount === pager.page + 1} onClick={next}>
 				<i className="material-icons f-12"> arrow_right </i>
 			</button>
 		</div>

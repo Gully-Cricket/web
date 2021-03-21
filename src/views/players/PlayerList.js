@@ -8,19 +8,18 @@ import Pagination from "../../components/common/Pagination";
 
 const PlayerList = () => {
 	const [players, setPlayers] = useState([]);
-	const [page, setPage]       = useState(0);
+	const [pager, setPager]     = useState({page: 0, perPage: 1});
 	const [total, setTotal]     = useState(0);
-	const [perPage, setPerPage] = useState(1);
 
 	useEffect(() => {
-		getPlayers(0).then(r => {
+		getPlayers(pager).then(r => {
 		}).catch(e => {
 		});
-	}, [page, perPage]);
+	}, [pager]);
 
-	const getPlayers = async () => {
+	const getPlayers = async (pager) => {
 		try {
-			let {data} = await http.get(`players`, {params: {page, perPage}});
+			let {data} = await http.get(`players`, {params: pager});
 			setPlayers(data.content);
 			setTotal(data.totalElements);
 		} catch(e) {
@@ -89,17 +88,9 @@ const PlayerList = () => {
 
 					<CardFooter className="border-top">
 						<Pagination className="ml-auto float-right"
+						            pager={pager}
 						            total={total}
-						            perPage={perPage}
-						            page={page}
-						            onPageChange={async (e) => {
-							            setPage(e);
-							            await getPlayers();
-						            }}
-						            onPageSizeChange={async (e) => {
-							            await setPerPage(e);
-							            await getPlayers();
-						            }}/>
+						            onPagerChange={setPager}/>
 					</CardFooter>
 				</Card>
 			</Col>
