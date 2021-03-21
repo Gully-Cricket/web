@@ -1,5 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {Container, Row, Col, Card, CardHeader, CardBody} from "shards-react";
+import ReactCountryFlag from "react-country-flag"
+import _ from "lodash";
+import countries from "../../data/countries.json";
 
 import http from "../../axios";
 import PageTitle from "../../components/common/PageTitle";
@@ -17,6 +20,11 @@ const AddNewPost = () => {
 			alert("Error");
 		});
 	}, []);
+
+	const getCountryName = (code) => {
+		let country = _.find(countries, { code });
+		return country?country.name:'Unknown';
+	}
 
 	return (<Container fluid className="main-content-container px-4">
 		{/* Page Header */}
@@ -44,6 +52,12 @@ const AddNewPost = () => {
 								<th scope="col" className="border-0">
 									Role
 								</th>
+								<th scope="col" className="border-0">
+									Age
+								</th>
+								<th scope="col" className="border-0 text-center">
+									Country
+								</th>
 							</tr>
 							</thead>
 							<tbody>
@@ -52,6 +66,10 @@ const AddNewPost = () => {
 									<td>{player.id}</td>
 									<td>{player.firstName} {player.lastName}</td>
 									<td>{player.role}</td>
+									<td>{player.age}</td>
+									<td className="text-center">
+										<ReactCountryFlag countryCode={player.placeOfBirth.country} title={getCountryName(player.placeOfBirth.country)}/>
+									</td>
 								</tr>;
 							})}
 							</tbody>
