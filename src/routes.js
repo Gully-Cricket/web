@@ -12,7 +12,7 @@ import Errors from "./views/Errors";
 import ComponentsOverview from "./views/ComponentsOverview";
 import Tables from "./views/Tables";
 import BlogPosts from "./views/BlogPosts";
-import Players from "./views/players/List";
+import Players from "./views/players/PlayerList";
 
 export default [
 	{
