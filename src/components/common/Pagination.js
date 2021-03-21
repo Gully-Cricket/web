@@ -39,17 +39,17 @@ const Pagination = (props) => {
 		</div>
 
 		<div className="btn-group">
-			<button className="btn btn-primary" disabled={pager.page === 0} onClick={prev}>
+			<button className="btn btn-primary px-1" disabled={pager.page === 0} onClick={prev}>
 				<i className="material-icons f-12"> arrow_left </i>
 			</button>
 			{pages.map(page => (
 			<button key={page}
 			        onClick={handlePageChange}
-			        className={`btn ${page === pager.page ? 'btn-primary' : 'btn-outline-primary'}`}>
+			        className={`btn px-2 ${page === pager.page ? 'btn-primary' : 'btn-outline-primary'}`}>
 				{page + 1}
 			</button>
 			))}
-			<button className="btn btn-primary" disabled={pageCount === pager.page + 1} onClick={next}>
+			<button className="btn btn-primary px-1" disabled={pageCount === pager.page + 1} onClick={next}>
 				<i className="material-icons f-12"> arrow_right </i>
 			</button>
 		</div>

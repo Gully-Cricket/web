@@ -12,12 +12,12 @@ const PlayerList = () => {
 	const [total, setTotal]     = useState(0);
 
 	useEffect(() => {
-		getPlayers(pager).then(r => {
+		getPlayers().then(r => {
 		}).catch(e => {
 		});
 	}, [pager]);
 
-	const getPlayers = async (pager) => {
+	const getPlayers = async () => {
 		try {
 			let {data} = await http.get(`players`, {params: pager});
 			setPlayers(data.content);

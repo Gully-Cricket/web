@@ -13,6 +13,7 @@ import ComponentsOverview from "./views/ComponentsOverview";
 import Tables from "./views/Tables";
 import BlogPosts from "./views/BlogPosts";
 import Players from "./views/players/PlayerList";
+import ViewPlayer from "./views/players/ViewPlayer";
 
 export default [
 	{
@@ -31,6 +32,12 @@ export default [
 		exact: true,
 		layout: DefaultLayout,
 		component: Players
+	},
+	{
+		path: "/players/:playerId",
+		exact: true,
+		layout: DefaultLayout,
+		component: ViewPlayer
 	},
 	{
 		path: "/user-profile-lite",
