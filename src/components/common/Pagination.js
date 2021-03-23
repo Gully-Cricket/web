@@ -33,7 +33,6 @@ const Pagination = (props) => {
 				<option value={10}>10</option>
 				<option value={20}>20</option>
 				<option value={50}>50</option>
-				<option value={1}>1</option>
 			</select>
 			<label style={{width: '40px'}} className={"ml-2 mt-2 mb-0"}>Items</label>
 		</div>

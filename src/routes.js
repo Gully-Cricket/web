@@ -14,6 +14,7 @@ import Tables from "./views/Tables";
 import BlogPosts from "./views/BlogPosts";
 import Players from "./views/players/PlayerList";
 import ViewPlayer from "./views/players/ViewPlayer";
+import AddPlayer from "./views/players/AddPlayer";
 
 export default [
 	{
@@ -23,21 +24,26 @@ export default [
 		component: () => <Redirect to="/blog-overview"/>
 	},
 	{
-		path: "/blog-overview",
-		layout: DefaultLayout,
-		component: BlogOverview
-	},
-	{
 		path: "/players",
 		exact: true,
 		layout: DefaultLayout,
 		component: Players
 	},
 	{
-		path: "/players/:playerId",
+		path: "/players/add",
 		exact: true,
 		layout: DefaultLayout,
+		component: AddPlayer
+	},
+	{
+		path: "/players/:playerId",
+		layout: DefaultLayout,
 		component: ViewPlayer
+	},
+	{
+		path: "/blog-overview",
+		layout: DefaultLayout,
+		component: BlogOverview
 	},
 	{
 		path: "/user-profile-lite",

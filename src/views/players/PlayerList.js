@@ -1,14 +1,15 @@
 import React, {useEffect, useState} from "react";
-import {Container, Row, Col, Card, CardHeader, CardBody, Button, CardFooter, Alert} from "shards-react";
+import {Container, Row, Col, Card, CardHeader, CardBody, CardFooter, Alert} from "shards-react";
 
 import http from "../../axios";
 import PageTitle from "../../components/common/PageTitle";
 import CountryFlag from "../../components/common/CountryFlag";
 import Pagination from "../../components/common/Pagination";
+import {Link} from "react-router-dom";
 
 const PlayerList = () => {
 	const [players, setPlayers] = useState([]);
-	const [pager, setPager]     = useState({page: 0, perPage: 1});
+	const [pager, setPager]     = useState({page: 0, perPage: 10});
 	const [total, setTotal]     = useState(0);
 
 	useEffect(() => {
@@ -39,9 +40,9 @@ const PlayerList = () => {
 				<Card small className="mb-4">
 					<CardHeader className="border-bottom d-flex justify-content-between">
 						<h5 className="m-0  ">Available Players</h5>
-						<Button theme="success" size="sm" className="font-weight-bold" title="Add new player">
+						<Link  to="/players/add" theme="success" size="sm" className="btn btn-sm btn-success font-weight-bold" title="Add new player">
 							<i className="material-icons">person_add</i> Add Player
-						</Button>
+						</Link>
 					</CardHeader>
 
 					<CardBody className="p-0 pb-3">
