@@ -262,7 +262,7 @@ const EditPlayer = (props) => {
 									            name="role"
 									            required
 									            value={player.role}
-									            onChange={updatePlaceOfBirth}>
+									            onChange={updatePlayer}>
 										<option value={''}>Select Role</option>
 										<option value="BATSMAN">Batsman</option>
 										<option value="BOWLER">Bowler</option>
@@ -277,7 +277,7 @@ const EditPlayer = (props) => {
 									            name="battingStyle"
 									            required
 									            value={player.battingStyle}
-									            onChange={updatePlaceOfBirth}>
+									            onChange={updatePlayer}>
 										<option value={''}>Select Batting Style</option>
 										<option value="RIGHT">Right Handed</option>
 										<option value="LEFT">Left Handed</option>
@@ -290,7 +290,7 @@ const EditPlayer = (props) => {
 									            name="bowlingStyle"
 									            required
 									            value={player.bowlingStyle}
-									            onChange={updatePlaceOfBirth}>
+									            onChange={updatePlayer}>
 										<option value={''}>Select Bowling Style</option>
 										<option value="RIGHT">Right Arm</option>
 										<option value="LEFT">Left Arm</option>
@@ -303,7 +303,7 @@ const EditPlayer = (props) => {
 									            name="bowlingType"
 									            required
 									            value={player.bowlingType}
-									            onChange={updatePlaceOfBirth}>
+									            onChange={updatePlayer}>
 										<option value={''}>Select Bowling Type</option>
 										<option value="MEDIUM">Medium</option>
 										<option value="FAST">Fast</option>

@@ -199,7 +199,7 @@ const AddPlayer = (props) => {
 									            name="role"
 									            required
 									            defaultValue={player.role}
-									            onChange={updatePlaceOfBirth}>
+									            onChange={updatePlayer}>
 										<option value={null}>Select Role</option>
 										<option value="BATSMAN">Batsman</option>
 										<option value="BOWLER">Bowler</option>
@@ -214,7 +214,7 @@ const AddPlayer = (props) => {
 									            name="battingStyle"
 									            required
 									            defaultValue={player.battingStyle}
-									            onChange={updatePlaceOfBirth}>
+									            onChange={updatePlayer}>
 										<option value={null}>Select Batting Style</option>
 										<option value="RIGHT">Right Handed</option>
 										<option value="LEFT">Left Handed</option>
@@ -227,7 +227,7 @@ const AddPlayer = (props) => {
 									            name="bowlingStyle"
 									            required
 									            defaultValue={player.bowlingStyle}
-									            onChange={updatePlaceOfBirth}>
+									            onChange={updatePlayer}>
 										<option value={null}>Select Bowling Style</option>
 										<option value="RIGHT">Right Arm</option>
 										<option value="LEFT">Left Arm</option>
@@ -240,7 +240,7 @@ const AddPlayer = (props) => {
 									            name="bowlingType"
 									            required
 									            defaultValue={player.bowlingType}
-									            onChange={updatePlaceOfBirth}>
+									            onChange={updatePlayer}>
 										<option value={null}>Select Bowling Type</option>
 										<option value="MEDIUM">Medium</option>
 										<option value="FAST">Fast</option>
