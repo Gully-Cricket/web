@@ -4,7 +4,6 @@ import {Container, Row, Col, CardHeader, Form, FormInput, FormSelect, Button, Ca
 import http from "../../axios";
 import PageTitle from "../../components/common/PageTitle";
 import countries from "../../data/countries.json";
-import {Redirect} from "react-router-dom";
 
 const AddPlayer = (props) => {
 	const [player, setPlayer] = useState({

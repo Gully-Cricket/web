@@ -8,13 +8,14 @@ import {DefaultLayout} from "./layouts";
 import BlogOverview from "./views/BlogOverview";
 import UserProfileLite from "./views/UserProfileLite";
 import AddNewPost from "./views/AddNewPost";
-import Errors from "./views/Errors";
 import ComponentsOverview from "./views/ComponentsOverview";
 import Tables from "./views/Tables";
 import BlogPosts from "./views/BlogPosts";
 import Players from "./views/players/PlayerList";
 import ViewPlayer from "./views/players/ViewPlayer";
 import AddPlayer from "./views/players/AddPlayer";
+import Error404 from "./views/404";
+import Error500 from "./views/500";
 
 export default [
 	{
@@ -58,7 +59,12 @@ export default [
 	{
 		path: "/errors",
 		layout: DefaultLayout,
-		component: Errors
+		component: Error500
+	},
+	{
+		path: "/notfound",
+		layout: DefaultLayout,
+		component: Error404
 	},
 	{
 		path: "/components-overview",

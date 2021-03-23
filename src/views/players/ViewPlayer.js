@@ -17,9 +17,13 @@ const ViewPlayer = (props) => {
 	const getPlayer = async () => {
 		try {
 			let {data} = await http.get(`players/${props.match.params.playerId}`);
-			setPlayer(data);
+			if(data){
+				setPlayer(data);
+			} else {
+				props.history.push('/notfound');
+			}
 		} catch(e) {
-
+			props.history.push('/erros');
 		}
 	}
 
