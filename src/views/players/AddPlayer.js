@@ -4,25 +4,26 @@ import {Container, Row, Col, CardHeader, Form, FormInput, FormSelect, Button, Ca
 import http from "../../axios";
 import PageTitle from "../../components/common/PageTitle";
 import countries from "../../data/countries.json";
+import {Redirect} from "react-router-dom";
 
-const AddPlayer = () => {
+const AddPlayer = (props) => {
 	const [player, setPlayer] = useState({
-		firstName: null,
-		lastName: null,
-		dateOfBirth: null,
-		role: null,
-		battingStyle: null,
-		bowlingStyle: null,
-		bowlingType: null,
+		firstName: 'Ishan',
+		lastName: "Kishan",
+		dateOfBirth: '1998-07-18',
+		role: 'WICKETKEEPER',
+		battingStyle: 'LEFT',
+		bowlingStyle: 'RIGHT',
+		bowlingType: 'FINGER',
 		height: null
 	});
 
 	const [placeOfBirth, setPlaceOfBirth] = useState({
 		line1: null,
 		line2: null,
-		city: null,
-		state: null,
-		country: null,
+		city: 'Bihar',
+		state: 'Patna',
+		country: 'IN',
 		pincode: null,
 	});
 
@@ -50,14 +51,21 @@ const AddPlayer = () => {
 
 	const createPlayer = async () => {
 		try {
-			await http.post('players');
+			let payload = {
+				...player,
+				placeOfBirth
+			}
+			let {data}  = await http.post('players', payload);
+			console.log(data)
+			// let path = `/players/${data}`;
+			// let path = "/blog-overview";
+			props.history.push(`/players/${data}`);
 		} catch(e) {
-
+			console.error(e);
 		}
 	}
 
 	const onSubmit = async (e) => {
-		console.log(e);
 		e.preventDefault();
 		await createPlayer();
 	}
@@ -76,8 +84,8 @@ const AddPlayer = () => {
 					<CardBody>
 						<Form onSubmit={onSubmit}>
 							<Row form>
-								<Col md="4" className="form-group">
-									<label htmlFor="firstName">First Name</label>
+								<Col md="3" className="form-group">
+									<label htmlFor="firstName">First Name <span className="text-danger">*</span></label>
 									<FormInput id="firstName"
 									           name="firstName"
 									           required
@@ -86,8 +94,8 @@ const AddPlayer = () => {
 									           onChange={updatePlayer}/>
 								</Col>
 
-								<Col md="4" className="form-group">
-									<label htmlFor="lastName">Last Name</label>
+								<Col md="3" className="form-group">
+									<label htmlFor="lastName">Last Name <span className="text-danger">*</span></label>
 									<FormInput id="lastName"
 									           name="lastName"
 									           required
@@ -95,13 +103,24 @@ const AddPlayer = () => {
 									           defaultValue={player.lastName}/>
 								</Col>
 
-								<Col md="4" className="form-group">
-									<label htmlFor="dateOfBirth">Date Of Birth</label>
+								<Col md="3" className="form-group">
+									<label htmlFor="dateOfBirth">Date Of Birth <span className="text-danger">*</span></label>
 									<FormInput id="lastName" type="date"
 									           name="dateOfBirth"
 									           required
 									           placeholder="Date Of Birth"
 									           defaultValue={player.dateOfBirth}/>
+								</Col>
+
+								<Col md="3" className="form-group">
+									<label htmlFor="height">Height</label>
+									<FormInput type="number"
+									           step="1"
+									           id="height"
+									           name="height"
+									           placeholder="Height in Inches"
+									           defaultValue={player.height}
+									           onChange={updatePlayer}/>
 								</Col>
 							</Row>
 
@@ -127,25 +146,27 @@ const AddPlayer = () => {
 
 							<Row form>
 								<Col md="3" className="form-group">
-									<label htmlFor="city">City</label>
+									<label htmlFor="city">City <span className="text-danger">*</span></label>
 									<FormInput id="city"
 									           name="city"
+									           required
 									           placeholder="City"
 									           defaultValue={placeOfBirth.city}
 									           onChange={updatePlaceOfBirth}/>
 								</Col>
 
 								<Col md="3" className="form-group">
-									<label htmlFor="state">State</label>
+									<label htmlFor="state">State <span className="text-danger">*</span></label>
 									<FormInput id="state"
 									           name="state"
+									           required
 									           placeholder="State"
 									           defaultValue={placeOfBirth.state}
 									           onChange={updatePlaceOfBirth}/>
 								</Col>
 
 								<Col md="3" className="form-group">
-									<label htmlFor="country">Country</label>
+									<label htmlFor="country">Country <span className="text-danger">*</span></label>
 									<FormSelect id="country"
 									            name="country"
 									            required
@@ -174,18 +195,22 @@ const AddPlayer = () => {
 
 							<Row form>
 								<Col md="3" className="form-group">
-									<label htmlFor="height">Height</label>
-									<FormInput type="number"
-									           step="1"
-									           id="height"
-									           name="height"
-									           placeholder="Height in Inches"
-									           defaultValue={player.height}
-									           onChange={updatePlayer}/>
+									<label htmlFor="role">Role <span className="text-danger">*</span></label>
+									<FormSelect id="role"
+									            name="role"
+									            required
+									            defaultValue={player.role}
+									            onChange={updatePlaceOfBirth}>
+										<option value={null}>Select Role</option>
+										<option value="BATSMAN">Batsman</option>
+										<option value="BOWLER">Bowler</option>
+										<option value="ALLROUNDER">All Rounder</option>
+										<option value="WICKETKEEPER">Wicket Keeper</option>
+									</FormSelect>
 								</Col>
 
 								<Col md="3" className="form-group">
-									<label htmlFor="battingStyle">Batting Style</label>
+									<label htmlFor="battingStyle">Batting Style <span className="text-danger">*</span></label>
 									<FormSelect id="battingStyle"
 									            name="battingStyle"
 									            required
@@ -198,7 +223,7 @@ const AddPlayer = () => {
 								</Col>
 
 								<Col md="3" className="form-group">
-									<label htmlFor="bowlingStyle">Bowling Style</label>
+									<label htmlFor="bowlingStyle">Bowling Style <span className="text-danger">*</span></label>
 									<FormSelect id="bowlingStyle"
 									            name="bowlingStyle"
 									            required
@@ -211,7 +236,7 @@ const AddPlayer = () => {
 								</Col>
 
 								<Col md="3" className="form-group">
-									<label htmlFor="bowlingType">Bowling Type</label>
+									<label htmlFor="bowlingType">Bowling Type <span className="text-danger">*</span></label>
 									<FormSelect id="bowlingType"
 									            name="bowlingType"
 									            required
