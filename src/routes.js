@@ -11,11 +11,12 @@ import AddNewPost from "./views/AddNewPost";
 import ComponentsOverview from "./views/ComponentsOverview";
 import Tables from "./views/Tables";
 import BlogPosts from "./views/BlogPosts";
+import Error404 from "./views/404";
+import Error500 from "./views/500";
 import Players from "./views/players/PlayerList";
 import ViewPlayer from "./views/players/ViewPlayer";
 import AddPlayer from "./views/players/AddPlayer";
-import Error404 from "./views/404";
-import Error500 from "./views/500";
+import EditPlayer from "./views/players/EditPlayer";
 
 export default [
 	{
@@ -40,6 +41,11 @@ export default [
 		path: "/players/:playerId",
 		layout: DefaultLayout,
 		component: ViewPlayer
+	},
+	{
+		path: "/players/:playerId/edit",
+		layout: DefaultLayout,
+		component: EditPlayer
 	},
 	{
 		path: "/blog-overview",

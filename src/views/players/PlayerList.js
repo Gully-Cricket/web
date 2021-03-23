@@ -40,7 +40,7 @@ const PlayerList = () => {
 				<Card small className="mb-4">
 					<CardHeader className="border-bottom d-flex justify-content-between">
 						<h5 className="m-0  ">Available Players</h5>
-						<Link  to="/players/add" theme="success" size="sm" className="btn btn-sm btn-success font-weight-bold" title="Add new player">
+						<Link to="/players/add" theme="success" size="sm" className="btn btn-sm btn-success font-weight-bold" title="Add new player">
 							<i className="material-icons">person_add</i> Add Player
 						</Link>
 					</CardHeader>
@@ -75,7 +75,9 @@ const PlayerList = () => {
 							{players.map(function(player, index) {
 								return <tr key={player.id}>
 									<td>{player.id}</td>
-									<td>{player.firstName} {player.lastName}</td>
+									<td>
+										<Link to={"/players/" + player.id}>{player.firstName} {player.lastName}</Link>
+									</td>
 									<td>{player.role}</td>
 									<td>{player.age}</td>
 									<td className="text-center">

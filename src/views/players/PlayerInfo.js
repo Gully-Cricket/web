@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import {Card, CardHeader, Button, Row, Col, CardBody} from "shards-react";
 import Date from "../../components/common/DateView";
 import Country from "../../components/common/Country";
+import {Link} from "react-router-dom";
 
 const PlayerInfo = ({player, userDetails}) => (
 <Card small className="mb-4 pt-3">
@@ -11,9 +12,9 @@ const PlayerInfo = ({player, userDetails}) => (
 			<img className="rounded-circle" src={userDetails.avatar} alt={player.firstName} width="110"/>
 		</div>
 		<h4 className="mb-0">{player.firstName} {player.lastName}</h4>
-		<Button pill outline size="sm" className="mb-2">
+		<Link to={`/players/${player.id}/edit`} className="btn btn-outline-primary btn-pill mb-2">
 			<i className="material-icons mr-1">edit</i> Edit Player
-		</Button>
+		</Link>
 	</CardHeader>
 	<CardBody>
 		<Row className={'mb-2'}>
