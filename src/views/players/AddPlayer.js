@@ -7,22 +7,22 @@ import countries from "../../data/countries.json";
 
 const AddPlayer = (props) => {
 	const [player, setPlayer] = useState({
-		firstName: 'Ishan',
-		lastName: "Kishan",
-		dateOfBirth: '1998-07-18',
-		role: 'WICKETKEEPER',
-		battingStyle: 'LEFT',
-		bowlingStyle: 'RIGHT',
-		bowlingType: 'FINGER',
+		firstName: null,
+		lastName: null,
+		dateOfBirth: null,
+		role: null,
+		battingStyle: null,
+		bowlingStyle: null,
+		bowlingType: null,
 		height: null
 	});
 
 	const [placeOfBirth, setPlaceOfBirth] = useState({
 		line1: null,
 		line2: null,
-		city: 'Bihar',
-		state: 'Patna',
-		country: 'IN',
+		city: null,
+		state: null,
+		country: null,
 		pincode: null,
 	});
 
@@ -78,7 +78,7 @@ const AddPlayer = (props) => {
 			<Col lg="12">
 				<Card small className="mb-4">
 					<CardHeader className="border-bottom">
-						<h6 className="m-0">Player Bio</h6>
+						<h6 className="m-0">Add New Player</h6>
 					</CardHeader>
 					<CardBody>
 						<Form onSubmit={onSubmit}>
