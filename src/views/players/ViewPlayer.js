@@ -7,7 +7,16 @@ import UserAccountDetails from "../../components/user-profile-lite/UserAccountDe
 import PlayerInfo from "./PlayerInfo";
 
 const ViewPlayer = (props) => {
-	const [player, setPlayer] = useState({firstName: null, lastName: null, role: null, dateOfBirth: null, age: null, placeOfBirth: {}});
+	const [player, setPlayer] = useState({
+		firstName: null,
+		lastName: null,
+		role: null,
+		dateOfBirth: null,
+		age: null,
+		height: null,
+		placeOfBirth: {}
+	});
+
 	useEffect(() => {
 		getPlayer().then(r => {
 		}).catch(e => {
@@ -17,8 +26,8 @@ const ViewPlayer = (props) => {
 	const getPlayer = async () => {
 		try {
 			let {data} = await http.get(`players/${props.match.params.playerId}`);
-			if(data){
-				setPlayer(data);
+			if(data) {
+				setPlayer({...data, placeOfBirth: data.placeOfBirth||{}});
 			} else {
 				props.history.push('/notfound');
 			}
@@ -34,7 +43,7 @@ const ViewPlayer = (props) => {
 		</Row>
 		<Row>
 			<Col lg="4">
-				<PlayerInfo player={player} />
+				<PlayerInfo player={player}/>
 			</Col>
 			<Col lg="8">
 				<UserAccountDetails/>

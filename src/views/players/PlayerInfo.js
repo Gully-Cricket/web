@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Card, CardHeader, Button, Row, Col, CardBody} from "shards-react";
+import {Card, CardHeader, Row, Col, CardBody} from "shards-react";
 import Date from "../../components/common/DateView";
 import Country from "../../components/common/Country";
 import {Link} from "react-router-dom";

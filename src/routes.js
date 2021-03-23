@@ -39,11 +39,13 @@ export default [
 	},
 	{
 		path: "/players/:playerId",
+		exact: true,
 		layout: DefaultLayout,
 		component: ViewPlayer
 	},
 	{
 		path: "/players/:playerId/edit",
+		exact: true,
 		layout: DefaultLayout,
 		component: EditPlayer
 	},
