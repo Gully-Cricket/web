@@ -1,21 +1,19 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {Container, Row, Col, CardHeader, Form, FormInput, FormSelect, Button, Card, CardBody, CardFooter} from "shards-react";
 
 import http from "../../axios";
 import PageTitle from "../../components/common/PageTitle";
 import countries from "../../data/countries.json";
 
-const EditPlayer = (props) => {
-	const [savedPlayer, setSavedPlayer] = useState({placeOfBirth: {}});
-
+const Add = (props) => {
 	const [player, setPlayer] = useState({
 		firstName: null,
 		lastName: null,
 		dateOfBirth: null,
 		role: null,
-		battingStyle: '',
-		bowlingStyle: '',
-		bowlingType: '',
+		battingStyle: null,
+		bowlingStyle: null,
+		bowlingType: null,
 		height: null
 	});
 
@@ -24,43 +22,15 @@ const EditPlayer = (props) => {
 		line2: null,
 		city: null,
 		state: null,
-		country: '',
+		country: null,
 		pincode: null,
 	});
 
-	useEffect(() => {
-		getPlayer().then(() => {
-		}).catch(() => {
-		});
-	}, []);
-
-	useEffect(() => {
-		if(savedPlayer.id) {
-			reset();
-		}
-	}, [savedPlayer]);
-
-	useEffect(() => {
-		if(player.id) {
-		}
-	}, [player]);
-
-	useEffect(() => {
-		if(placeOfBirth.id) {
-		}
-	}, [placeOfBirth]);
-
-	const getPlayer = async () => {
-		try {
-			let {data} = await http.get(`players/${props.match.params.playerId}`);
-			if(data) {
-				setSavedPlayer(data);
-			} else {
-				props.history.push('/notfound');
-			}
-		} catch(e) {
-			props.history.push('/erros');
-		}
+	const updatePlayer = (e) => {
+		let update            = {};
+		update[e.target.name] = e.target.value;
+		let updatedPlayer     = {...player, ...update}
+		setPlayer(updatedPlayer);
 	}
 
 	const updatePlaceOfBirth = (e) => {
@@ -70,61 +40,37 @@ const EditPlayer = (props) => {
 		setPlaceOfBirth(updatedPlaceOfBirth);
 	}
 
-	const updatePlayer = (e) => {
-		let update            = {};
-		update[e.target.name] = e.target.value;
-		let updatedPlayer     = {...player, ...update}
-		setPlayer(updatedPlayer);
-	}
-
 	const reset = () => {
-		setPlayer({
-			id: savedPlayer.id,
-			firstName: savedPlayer.firstName,
-			lastName: savedPlayer.lastName,
-			dateOfBirth: savedPlayer.dateOfBirth?savedPlayer.dateOfBirth.substr(0,10):null,
-			role: savedPlayer.role,
-			battingStyle: savedPlayer.battingStyle||'',
-			bowlingStyle: savedPlayer.bowlingStyle||'',
-			bowlingType: savedPlayer.bowlingType||'',
-			height: savedPlayer.height
-		});
-
-		setPlaceOfBirth({
-			id: savedPlayer.id ? savedPlayer.placeOfBirth.id : null,
-			line1: savedPlayer.placeOfBirth ? savedPlayer.placeOfBirth.line1 : null,
-			line2: savedPlayer.placeOfBirth ? savedPlayer.placeOfBirth.line2 : null,
-			city: savedPlayer.placeOfBirth ? savedPlayer.placeOfBirth.city : null,
-			state: savedPlayer.placeOfBirth ? savedPlayer.placeOfBirth.state : null,
-			country: savedPlayer.placeOfBirth ? savedPlayer.placeOfBirth.country : '',
-			pincode: savedPlayer.placeOfBirth ? savedPlayer.placeOfBirth.pincode : null
-		});
-	}
-
-	const savePlayer = async () => {
-		try {
-			let payload = {
-				...player,
-				placeOfBirth
-			}
-			let {data}  = await http.put(`players/${props.match.params.playerId}`, payload);
-			console.log(data)
-			props.history.push(`/players/${data}`);
-		} catch(e) {
-			console.error(e);
-		}
+		document.getElementById('reset').click();
 	}
 
 	const submit = () => {
 		document.getElementById('submit').click();
 	}
 
-	const onSubmit = async (e) => {
-		e.preventDefault();
-		await savePlayer();
+	const createPlayer = async () => {
+		try {
+			let payload = {
+				...player,
+				placeOfBirth
+			}
+			let {data}  = await http.post('players', payload);
+			console.log(data)
+			// let path = `/players/${data}`;
+			// let path = "/blog-overview";
+			props.history.push(`/players/${data}`);
+		} catch(e) {
+			console.error(e);
+		}
 	}
 
-	return (<Container fluid className="main-content-container px-4">
+	const onSubmit = async (e) => {
+		e.preventDefault();
+		await createPlayer();
+	}
+
+	return (
+	<Container fluid className="main-content-container px-4">
 		<Row noGutters className="page-header py-4">
 			<PageTitle subtitle="Add Player" md="12" className="ml-sm-auto mr-sm-auto"/>
 		</Row>
@@ -132,7 +78,7 @@ const EditPlayer = (props) => {
 			<Col lg="12">
 				<Card small className="mb-4">
 					<CardHeader className="border-bottom">
-						<h6 className="m-0">Edit Player</h6>
+						<h6 className="m-0">Add New Player</h6>
 					</CardHeader>
 					<CardBody>
 						<Form onSubmit={onSubmit}>
@@ -159,7 +105,7 @@ const EditPlayer = (props) => {
 
 								<Col md="3" className="form-group">
 									<label htmlFor="dateOfBirth">Date Of Birth <span className="text-danger">*</span></label>
-									<FormInput id="lastName" type="date"
+									<FormInput id="dateOfBirth" type="date"
 									           name="dateOfBirth"
 									           required
 									           placeholder="Date Of Birth"
@@ -227,16 +173,12 @@ const EditPlayer = (props) => {
 									<FormSelect id="country"
 									            name="country"
 									            required
-									            value={placeOfBirth.country||''}
+									            defaultValue={placeOfBirth.country}
 									            onChange={updatePlaceOfBirth}>
-										<option value={''}>Select Country</option>
+										<option value={null}>Select Country</option>
 										{
 											countries.map((country, index) => {
-												return (
-													<option key={index} value={country.code}>
-														{country.name}
-													</option>
-												)
+												return (<option key={index} value={country.code}>{country.name}</option>)
 											})
 										}
 									</FormSelect>
@@ -260,9 +202,9 @@ const EditPlayer = (props) => {
 									<FormSelect id="role"
 									            name="role"
 									            required
-									            value={player.role||''}
+									            defaultValue={player.role}
 									            onChange={updatePlayer}>
-										<option value={''}>Select Role</option>
+										<option value={null}>Select Role</option>
 										<option value="BATSMAN">Batsman</option>
 										<option value="BOWLER">Bowler</option>
 										<option value="ALLROUNDER">All Rounder</option>
@@ -275,9 +217,9 @@ const EditPlayer = (props) => {
 									<FormSelect id="battingStyle"
 									            name="battingStyle"
 									            required
-									            value={player.battingStyle||''}
+									            defaultValue={player.battingStyle}
 									            onChange={updatePlayer}>
-										<option value={''}>Select Batting Style</option>
+										<option value={null}>Select Batting Style</option>
 										<option value="RIGHT">Right Handed</option>
 										<option value="LEFT">Left Handed</option>
 									</FormSelect>
@@ -288,9 +230,9 @@ const EditPlayer = (props) => {
 									<FormSelect id="bowlingStyle"
 									            name="bowlingStyle"
 									            required
-									            value={player.bowlingStyle||''}
+									            defaultValue={player.bowlingStyle}
 									            onChange={updatePlayer}>
-										<option value={''}>Select Bowling Style</option>
+										<option value={null}>Select Bowling Style</option>
 										<option value="RIGHT">Right Arm</option>
 										<option value="LEFT">Left Arm</option>
 									</FormSelect>
@@ -301,9 +243,9 @@ const EditPlayer = (props) => {
 									<FormSelect id="bowlingType"
 									            name="bowlingType"
 									            required
-									            value={player.bowlingType||''}
+									            defaultValue={player.bowlingType}
 									            onChange={updatePlayer}>
-										<option value={''}>Select Bowling Type</option>
+										<option value={null}>Select Bowling Type</option>
 										<option value="MEDIUM">Medium</option>
 										<option value="FAST">Fast</option>
 										<option value="MEDIUMFAST">Medium Fast</option>
@@ -313,6 +255,7 @@ const EditPlayer = (props) => {
 								</Col>
 							</Row>
 
+							<Button type="reset" id="reset" className="d-none"/>
 							<Button type="submit" id="submit" className="d-none"/>
 						</Form>
 					</CardBody>
@@ -330,7 +273,8 @@ const EditPlayer = (props) => {
 				</Card>
 			</Col>
 		</Row>
-	</Container>);
+	</Container>
+	);
 };
 
-export default EditPlayer;
+export default Add;

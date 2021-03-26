@@ -5,11 +5,11 @@ import Date from "../../components/common/DateView";
 import Country from "../../components/common/Country";
 import {Link} from "react-router-dom";
 
-const PlayerInfo = ({player, userDetails}) => (
+const Info = ({player, avatar}) => (
 <Card small className="mb-4 pt-3">
 	<CardHeader className="border-bottom text-center">
 		<div className="mb-3 mx-auto">
-			<img className="rounded-circle" src={userDetails.avatar} alt={player.firstName} width="110"/>
+			<img className="rounded-circle" src={avatar} alt={player.firstName} width="110"/>
 		</div>
 		<h4 className="mb-0">{player.firstName} {player.lastName}</h4>
 		<Link to={`/players/${player.id}/edit`} className="btn btn-outline-primary btn-pill mb-2">
@@ -49,11 +49,11 @@ const PlayerInfo = ({player, userDetails}) => (
 </Card>
 );
 
-PlayerInfo.propTypes = {
+Info.propTypes = {
 	player: PropTypes.object
 };
 
-PlayerInfo.defaultProps = {
+Info.defaultProps = {
 	player: {
 		firstName: null,
 		lastName: null,
@@ -72,9 +72,7 @@ PlayerInfo.defaultProps = {
 		bowlingStyle: null,
 		bowlingType: null
 	},
-	userDetails: {
-		avatar: require("./../../images/avatars/0.jpg")
-	}
+	avatar: require("./../../images/avatars/0.jpg")
 };
 
-export default PlayerInfo;
+export default Info;

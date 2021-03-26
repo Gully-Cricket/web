@@ -7,7 +7,7 @@ import CountryFlag from "../../components/common/CountryFlag";
 import Pagination from "../../components/common/Pagination";
 import {Link} from "react-router-dom";
 
-const PlayerList = () => {
+const List = () => {
 	const [players, setPlayers] = useState([]);
 	const [pager, setPager]     = useState({page: 0, perPage: 10});
 	const [total, setTotal]     = useState(0);
@@ -101,4 +101,4 @@ const PlayerList = () => {
 	</Container>);
 };
 
-export default PlayerList;
+export default List;

@@ -1,0 +1,18 @@
+[
+    {
+        "code": "INTERNATIONAL",
+        "name": "International"
+    },
+    {
+        "code": "NATIONAL",
+        "name": "National"
+    },
+    {
+        "code": "STATE",
+        "name": "State"
+    },
+    {
+        "code": "CLUB",
+        "name": "Club"
+    }
+]

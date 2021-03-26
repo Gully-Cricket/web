@@ -3,10 +3,9 @@ import {Container, Row, Col} from "shards-react";
 
 import http from "../../axios";
 import PageTitle from "../../components/common/PageTitle";
-import UserAccountDetails from "../../components/user-profile-lite/UserAccountDetails";
-import PlayerInfo from "./PlayerInfo";
+import Info from "./Info";
 
-const ViewPlayer = (props) => {
+const View = (props) => {
 	const [player, setPlayer] = useState({
 		firstName: null,
 		lastName: null,
@@ -43,14 +42,13 @@ const ViewPlayer = (props) => {
 		</Row>
 		<Row>
 			<Col lg="4">
-				<PlayerInfo player={player}/>
+				<Info player={player}/>
 			</Col>
 			<Col lg="8">
-				<UserAccountDetails/>
 			</Col>
 		</Row>
 	</Container>
 	);
 };
 
-export default ViewPlayer;
+export default View;

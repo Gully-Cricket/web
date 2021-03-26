@@ -13,10 +13,16 @@ import Tables from "./views/Tables";
 import BlogPosts from "./views/BlogPosts";
 import Error404 from "./views/404";
 import Error500 from "./views/500";
-import Players from "./views/players/PlayerList";
-import ViewPlayer from "./views/players/ViewPlayer";
-import AddPlayer from "./views/players/AddPlayer";
-import EditPlayer from "./views/players/EditPlayer";
+
+import PlayerList from "./views/players/List";
+import PlayerView from "./views/players/View";
+import PlayerAdd from "./views/players/Add";
+import PlayerEdit from "./views/players/Edit";
+
+import TeamList from "./views/teams/List";
+import TeamView from "./views/teams/View";
+import TeamAdd from "./views/teams/Add";
+import TeamEdit from "./views/teams/Edit";
 
 export default [
 	{
@@ -25,30 +31,57 @@ export default [
 		layout: DefaultLayout,
 		component: () => <Redirect to="/blog-overview"/>
 	},
+
 	{
 		path: "/players",
 		exact: true,
 		layout: DefaultLayout,
-		component: Players
+		component: PlayerList
 	},
 	{
 		path: "/players/add",
 		exact: true,
 		layout: DefaultLayout,
-		component: AddPlayer
+		component: PlayerAdd
 	},
 	{
 		path: "/players/:playerId",
 		exact: true,
 		layout: DefaultLayout,
-		component: ViewPlayer
+		component: PlayerView
 	},
 	{
 		path: "/players/:playerId/edit",
 		exact: true,
 		layout: DefaultLayout,
-		component: EditPlayer
+		component: PlayerEdit
 	},
+
+	{
+		path: "/teams",
+		exact: true,
+		layout: DefaultLayout,
+		component: TeamList
+	},
+	{
+		path: "/teams/add",
+		exact: true,
+		layout: DefaultLayout,
+		component: TeamAdd
+	},
+	{
+		path: "/teams/:teamId",
+		exact: true,
+		layout: DefaultLayout,
+		component: TeamView
+	},
+	{
+		path: "/teams/:teamId/edit",
+		exact: true,
+		layout: DefaultLayout,
+		component: TeamEdit
+	},
+
 	{
 		path: "/blog-overview",
 		layout: DefaultLayout,
