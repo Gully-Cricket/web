@@ -7,6 +7,12 @@ export default function() {
 			htmlAfter: ""
 		},
 		{
+			title: "Teams",
+			to: "/teams",
+			htmlBefore: '<i class="material-icons">shield</i>',
+			htmlAfter: ""
+		},
+		{
 			title: "Players",
 			to: "/players",
 			htmlBefore: '<i class="material-icons">people</i>',
