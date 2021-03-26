@@ -10,18 +10,18 @@ const Edit = (props) => {
 	const [savedTeam, setSavedTeam] = useState({base: {}});
 
 	const [team, setTeam] = useState({
-		name: null,
+		name: '',
 		level: '',
-		dateOfFormation: null
+		dateOfFormation: ''
 	});
 
 	const [base, setBase] = useState({
-		line1: null,
-		line2: null,
-		city: null,
-		state: null,
+		line1: '',
+		line2: '',
+		city: '',
+		state: '',
 		country: '',
-		pincode: null,
+		pincode: '',
 	});
 
 	useEffect(() => {
@@ -75,20 +75,20 @@ const Edit = (props) => {
 
 	const reset = () => {
 		setTeam({
-			id: savedTeam.id,
-			name: savedTeam.name,
+			id: savedTeam.id||'',
+			name: savedTeam.name||'',
 			dateOfFormation: savedTeam.dateOfFormation || '',
 			level: savedTeam.level||''
 		});
 
 		setBase({
-			id: savedTeam.id ? savedTeam.base.id : null,
-			line1: savedTeam.base ? savedTeam.base.line1 : null,
-			line2: savedTeam.base ? savedTeam.base.line2 : null,
-			city: savedTeam.base ? savedTeam.base.city : null,
-			state: savedTeam.base ? savedTeam.base.state : null,
-			country: savedTeam.base ? savedTeam.base.country : '',
-			pincode: savedTeam.base ? savedTeam.base.pincode : null
+			id: savedTeam.id ? savedTeam.base.id : '',
+			line1: savedTeam.base ? savedTeam.base.line1||'' : '',
+			line2: savedTeam.base ? savedTeam.base.line2||'' : '',
+			city: savedTeam.base ? savedTeam.base.city||'' : '',
+			state: savedTeam.base ? savedTeam.base.state||'' : '',
+			country: savedTeam.base ? savedTeam.base.country||'' : '',
+			pincode: savedTeam.base ? savedTeam.base.pincode||'' : ''
 		});
 	}
 
@@ -99,7 +99,6 @@ const Edit = (props) => {
 				base
 			}
 			let {data}  = await http.put(`teams/${props.match.params.teamId}`, payload);
-			console.log(data)
 			props.history.push(`/teams/${data}`);
 		} catch(e) {
 			console.error(e);
@@ -134,18 +133,18 @@ const Edit = (props) => {
 									           name="name"
 									           required
 									           placeholder="Team Name"
-									           defaultValue={team.name}
+									           value={team.name}
 									           onChange={updateTeam}/>
 								</Col>
 
 								<Col md="4" className="form-group">
-									<label htmlFor="level">Level {team.level}<span className="text-danger">*</span></label>
+									<label htmlFor="level">Level<span className="text-danger">*</span></label>
 									<FormSelect id="level"
 									            name="level"
 									            required
-									            defaultValue={team.level}
+									            value={team.level}
 									            onChange={updateTeam}>
-										<option value={null}>Select Team Level</option>
+										<option value={''}>Select Team Level</option>
 										{
 											teamLevels.map((teamLevel, index) => {
 												return (<option key={teamLevel.code + index} value={teamLevel.code}>{teamLevel.name}</option>)
@@ -161,7 +160,7 @@ const Edit = (props) => {
 									           name="dateOfFormation"
 									           required
 									           placeholder="Date Of Formation"
-									           defaultValue={team.dateOfFormation}
+									           value={team.dateOfFormation}
 									           onChange={updateTeam}/>
 								</Col>
 							</Row>
@@ -174,7 +173,7 @@ const Edit = (props) => {
 									<FormInput id="line1"
 									           name="line1"
 									           placeholder="Address Line 1"
-									           defaultValue={base.line1}
+									           value={base.line1}
 									           onChange={updateBase}/>
 								</Col>
 
@@ -183,7 +182,7 @@ const Edit = (props) => {
 									<FormInput id="line2"
 									           name="line2"
 									           placeholder="Address Line 2"
-									           defaultValue={base.line2}
+									           value={base.line2}
 									           onChange={updateBase}/>
 								</Col>
 							</Row>
@@ -195,7 +194,7 @@ const Edit = (props) => {
 									           name="city"
 									           required
 									           placeholder="City"
-									           defaultValue={base.city}
+									           value={base.city}
 									           onChange={updateBase}/>
 								</Col>
 
@@ -205,7 +204,7 @@ const Edit = (props) => {
 									           name="state"
 									           required
 									           placeholder="State"
-									           defaultValue={base.state}
+									           value={base.state}
 									           onChange={updateBase}/>
 								</Col>
 
@@ -214,9 +213,9 @@ const Edit = (props) => {
 									<FormSelect id="country"
 									            name="country"
 									            required
-									            defaultValue={base.country}
+									            value={base.country}
 									            onChange={updateBase}>
-										<option value={null}>Select Country</option>
+										<option value={''}>Select Country</option>
 										{
 											countries.map((country, index) => {
 												return (<option key={country.code + index} value={country.code}>{country.name}</option>)
@@ -230,7 +229,7 @@ const Edit = (props) => {
 									<FormInput id="pincode"
 									           name="pincode"
 									           placeholder="Pin Code"
-									           defaultValue={base.pincode}
+									           value={base.pincode}
 									           onChange={updateBase}/>
 								</Col>
 							</Row>

@@ -9,23 +9,23 @@ const Edit = (props) => {
 	const [savedPlayer, setSavedPlayer] = useState({placeOfBirth: {}});
 
 	const [player, setPlayer] = useState({
-		firstName: null,
-		lastName: null,
-		dateOfBirth: null,
-		role: null,
+		firstName: '',
+		lastName: '',
+		dateOfBirth: '',
+		role: '',
 		battingStyle: '',
 		bowlingStyle: '',
 		bowlingType: '',
-		height: null
+		height: ''
 	});
 
 	const [placeOfBirth, setPlaceOfBirth] = useState({
-		line1: null,
-		line2: null,
-		city: null,
-		state: null,
+		line1: '',
+		line2: '',
+		city: '',
+		state: '',
 		country: '',
-		pincode: null,
+		pincode: '',
 	});
 
 	useEffect(() => {
@@ -78,27 +78,26 @@ const Edit = (props) => {
 	}
 
 	const reset = () => {
-		console.log('reset');
 		setPlayer({
-			id: savedPlayer.id,
-			firstName: savedPlayer.firstName,
-			lastName: savedPlayer.lastName,
-			dateOfBirth: savedPlayer.dateOfBirth?savedPlayer.dateOfBirth.substr(0,10):null,
-			role: savedPlayer.role,
-			battingStyle: savedPlayer.battingStyle||'',
-			bowlingStyle: savedPlayer.bowlingStyle||'',
-			bowlingType: savedPlayer.bowlingType||'',
-			height: savedPlayer.height
+			id: savedPlayer.id || '',
+			firstName: savedPlayer.firstName || '',
+			lastName: savedPlayer.lastName || '',
+			dateOfBirth: savedPlayer.dateOfBirth || '',
+			role: savedPlayer.role || '',
+			battingStyle: savedPlayer.battingStyle || '',
+			bowlingStyle: savedPlayer.bowlingStyle || '',
+			bowlingType: savedPlayer.bowlingType || '',
+			height: savedPlayer.height || ''
 		});
 
 		setPlaceOfBirth({
-			id: savedPlayer.id ? savedPlayer.placeOfBirth.id : null,
-			line1: savedPlayer.placeOfBirth ? savedPlayer.placeOfBirth.line1 : null,
-			line2: savedPlayer.placeOfBirth ? savedPlayer.placeOfBirth.line2 : null,
-			city: savedPlayer.placeOfBirth ? savedPlayer.placeOfBirth.city : null,
-			state: savedPlayer.placeOfBirth ? savedPlayer.placeOfBirth.state : null,
-			country: savedPlayer.placeOfBirth ? savedPlayer.placeOfBirth.country : '',
-			pincode: savedPlayer.placeOfBirth ? savedPlayer.placeOfBirth.pincode : null
+			id: savedPlayer.id ? savedPlayer.placeOfBirth.id : '',
+			line1: savedPlayer.placeOfBirth ? savedPlayer.placeOfBirth.line1||'' : '',
+			line2: savedPlayer.placeOfBirth ? savedPlayer.placeOfBirth.line2||'' : '',
+			city: savedPlayer.placeOfBirth ? savedPlayer.placeOfBirth.city||'' : '',
+			state: savedPlayer.placeOfBirth ? savedPlayer.placeOfBirth.state||'' : '',
+			country: savedPlayer.placeOfBirth ? savedPlayer.placeOfBirth.country||'' : '',
+			pincode: savedPlayer.placeOfBirth ? savedPlayer.placeOfBirth.pincode||'' : ''
 		});
 	}
 
@@ -109,7 +108,6 @@ const Edit = (props) => {
 				placeOfBirth
 			}
 			let {data}  = await http.put(`players/${props.match.params.playerId}`, payload);
-			console.log(data)
 			props.history.push(`/players/${data}`);
 		} catch(e) {
 			console.error(e);
@@ -144,7 +142,7 @@ const Edit = (props) => {
 									           name="firstName"
 									           required
 									           placeholder="First Name"
-									           defaultValue={player.firstName}
+									           value={player.firstName}
 									           onChange={updatePlayer}/>
 								</Col>
 
@@ -154,7 +152,7 @@ const Edit = (props) => {
 									           name="lastName"
 									           required
 									           placeholder="Last Name"
-									           defaultValue={player.lastName}
+									           value={player.lastName}
 									           onChange={updatePlayer}/>
 								</Col>
 
@@ -164,7 +162,7 @@ const Edit = (props) => {
 									           name="dateOfBirth"
 									           required
 									           placeholder="Date Of Birth"
-									           defaultValue={player.dateOfBirth}
+									           value={player.dateOfBirth}
 									           onChange={updatePlayer}/>
 								</Col>
 
@@ -175,7 +173,7 @@ const Edit = (props) => {
 									           id="height"
 									           name="height"
 									           placeholder="Height in Inches"
-									           defaultValue={player.height}
+									           value={player.height}
 									           onChange={updatePlayer}/>
 								</Col>
 							</Row>
@@ -188,7 +186,7 @@ const Edit = (props) => {
 									<FormInput id="line1"
 									           name="line1"
 									           placeholder="Address Line 1"
-									           defaultValue={placeOfBirth.line1}
+									           value={placeOfBirth.line1}
 									           onChange={updatePlaceOfBirth}/>
 								</Col>
 
@@ -197,7 +195,7 @@ const Edit = (props) => {
 									<FormInput id="line2"
 									           name="line2"
 									           placeholder="Address Line 2"
-									           defaultValue={placeOfBirth.line2}
+									           value={placeOfBirth.line2}
 									           onChange={updatePlaceOfBirth}/>
 								</Col>
 							</Row>
@@ -209,7 +207,7 @@ const Edit = (props) => {
 									           name="city"
 									           required
 									           placeholder="City"
-									           defaultValue={placeOfBirth.city}
+									           value={placeOfBirth.city}
 									           onChange={updatePlaceOfBirth}/>
 								</Col>
 
@@ -219,7 +217,7 @@ const Edit = (props) => {
 									           name="state"
 									           required
 									           placeholder="State"
-									           defaultValue={placeOfBirth.state}
+									           value={placeOfBirth.state}
 									           onChange={updatePlaceOfBirth}/>
 								</Col>
 
@@ -228,15 +226,15 @@ const Edit = (props) => {
 									<FormSelect id="country"
 									            name="country"
 									            required
-									            value={placeOfBirth.country||''}
+									            value={placeOfBirth.country || ''}
 									            onChange={updatePlaceOfBirth}>
 										<option value={''}>Select Country</option>
 										{
 											countries.map((country, index) => {
 												return (
-													<option key={index} value={country.code}>
-														{country.name}
-													</option>
+												<option key={index} value={country.code}>
+													{country.name}
+												</option>
 												)
 											})
 										}
@@ -248,7 +246,7 @@ const Edit = (props) => {
 									<FormInput id="pincode"
 									           name="pincode"
 									           placeholder="Pin Code"
-									           defaultValue={placeOfBirth.pincode}
+									           value={placeOfBirth.pincode}
 									           onChange={updatePlaceOfBirth}/>
 								</Col>
 							</Row>
@@ -261,7 +259,7 @@ const Edit = (props) => {
 									<FormSelect id="role"
 									            name="role"
 									            required
-									            value={player.role||''}
+									            value={player.role || ''}
 									            onChange={updatePlayer}>
 										<option value={''}>Select Role</option>
 										<option value="BATSMAN">Batsman</option>
@@ -276,7 +274,7 @@ const Edit = (props) => {
 									<FormSelect id="battingStyle"
 									            name="battingStyle"
 									            required
-									            value={player.battingStyle||''}
+									            value={player.battingStyle || ''}
 									            onChange={updatePlayer}>
 										<option value={''}>Select Batting Style</option>
 										<option value="RIGHT">Right Handed</option>
@@ -289,7 +287,7 @@ const Edit = (props) => {
 									<FormSelect id="bowlingStyle"
 									            name="bowlingStyle"
 									            required
-									            value={player.bowlingStyle||''}
+									            value={player.bowlingStyle || ''}
 									            onChange={updatePlayer}>
 										<option value={''}>Select Bowling Style</option>
 										<option value="RIGHT">Right Arm</option>
@@ -302,7 +300,7 @@ const Edit = (props) => {
 									<FormSelect id="bowlingType"
 									            name="bowlingType"
 									            required
-									            value={player.bowlingType||''}
+									            value={player.bowlingType || ''}
 									            onChange={updatePlayer}>
 										<option value={''}>Select Bowling Type</option>
 										<option value="MEDIUM">Medium</option>
