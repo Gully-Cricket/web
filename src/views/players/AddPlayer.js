@@ -99,7 +99,8 @@ const AddPlayer = (props) => {
 									           name="lastName"
 									           required
 									           placeholder="Last Name"
-									           defaultValue={player.lastName}/>
+									           defaultValue={player.lastName}
+									           onChange={updatePlayer}/>
 								</Col>
 
 								<Col md="3" className="form-group">
@@ -108,7 +109,8 @@ const AddPlayer = (props) => {
 									           name="dateOfBirth"
 									           required
 									           placeholder="Date Of Birth"
-									           defaultValue={player.dateOfBirth}/>
+									           defaultValue={player.dateOfBirth}
+									           onChange={updatePlayer}/>
 								</Col>
 
 								<Col md="3" className="form-group">
@@ -129,6 +131,7 @@ const AddPlayer = (props) => {
 								<Col md="6" className="form-group">
 									<label htmlFor="line1">Address Line 1</label>
 									<FormInput id="line1"
+									           name="line1"
 									           placeholder="Address Line 1"
 									           defaultValue={placeOfBirth.line1}
 									           onChange={updatePlaceOfBirth}/>
@@ -137,6 +140,7 @@ const AddPlayer = (props) => {
 								<Col md="6" className="form-group">
 									<label htmlFor="line2">Address Line 2</label>
 									<FormInput id="line2"
+									           name="line2"
 									           placeholder="Address Line 2"
 									           defaultValue={placeOfBirth.line2}
 									           onChange={updatePlaceOfBirth}/>

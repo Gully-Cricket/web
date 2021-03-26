@@ -36,20 +36,17 @@ const EditPlayer = (props) => {
 
 	useEffect(() => {
 		if(savedPlayer.id) {
-			console.log('savedPlayer', savedPlayer);
 			reset();
 		}
 	}, [savedPlayer]);
 
 	useEffect(() => {
 		if(player.id) {
-			console.log('player', player);
 		}
 	}, [player]);
 
 	useEffect(() => {
 		if(placeOfBirth.id) {
-			console.log('placeOfBirth', placeOfBirth);
 		}
 	}, [placeOfBirth]);
 
@@ -156,7 +153,8 @@ const EditPlayer = (props) => {
 									           name="lastName"
 									           required
 									           placeholder="Last Name"
-									           defaultValue={player.lastName}/>
+									           defaultValue={player.lastName}
+									           onChange={updatePlayer}/>
 								</Col>
 
 								<Col md="3" className="form-group">
@@ -165,7 +163,8 @@ const EditPlayer = (props) => {
 									           name="dateOfBirth"
 									           required
 									           placeholder="Date Of Birth"
-									           defaultValue={player.dateOfBirth}/>
+									           defaultValue={player.dateOfBirth}
+									           onChange={updatePlayer}/>
 								</Col>
 
 								<Col md="3" className="form-group">
@@ -228,7 +227,7 @@ const EditPlayer = (props) => {
 									<FormSelect id="country"
 									            name="country"
 									            required
-									            value={placeOfBirth.country}
+									            value={placeOfBirth.country||''}
 									            onChange={updatePlaceOfBirth}>
 										<option value={''}>Select Country</option>
 										{
@@ -261,7 +260,7 @@ const EditPlayer = (props) => {
 									<FormSelect id="role"
 									            name="role"
 									            required
-									            value={player.role}
+									            value={player.role||''}
 									            onChange={updatePlayer}>
 										<option value={''}>Select Role</option>
 										<option value="BATSMAN">Batsman</option>
@@ -276,7 +275,7 @@ const EditPlayer = (props) => {
 									<FormSelect id="battingStyle"
 									            name="battingStyle"
 									            required
-									            value={player.battingStyle}
+									            value={player.battingStyle||''}
 									            onChange={updatePlayer}>
 										<option value={''}>Select Batting Style</option>
 										<option value="RIGHT">Right Handed</option>
@@ -289,7 +288,7 @@ const EditPlayer = (props) => {
 									<FormSelect id="bowlingStyle"
 									            name="bowlingStyle"
 									            required
-									            value={player.bowlingStyle}
+									            value={player.bowlingStyle||''}
 									            onChange={updatePlayer}>
 										<option value={''}>Select Bowling Style</option>
 										<option value="RIGHT">Right Arm</option>
@@ -302,7 +301,7 @@ const EditPlayer = (props) => {
 									<FormSelect id="bowlingType"
 									            name="bowlingType"
 									            required
-									            value={player.bowlingType}
+									            value={player.bowlingType||''}
 									            onChange={updatePlayer}>
 										<option value={''}>Select Bowling Type</option>
 										<option value="MEDIUM">Medium</option>
