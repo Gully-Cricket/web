@@ -4,6 +4,7 @@ import {Container, Row, Col} from "shards-react";
 import http from "../../axios";
 import PageTitle from "../../components/common/PageTitle";
 import Info from "./Info";
+import Squad from "./squad/Members";
 
 const View = (props) => {
 	const [team, setTeam] = useState({
@@ -42,7 +43,7 @@ const View = (props) => {
 				<Info team={team}/>
 			</Col>
 			<Col lg="8">
-
+				<Squad teamId={props.match.params.teamId}/>
 			</Col>
 		</Row>
 	</Container>
