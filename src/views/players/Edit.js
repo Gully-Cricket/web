@@ -91,7 +91,7 @@ const Edit = (props) => {
 		});
 
 		setPlaceOfBirth({
-			id: savedPlayer.id ? savedPlayer.placeOfBirth.id : '',
+			id: savedPlayer.placeOfBirth ? savedPlayer.placeOfBirth.id : '',
 			line1: savedPlayer.placeOfBirth ? savedPlayer.placeOfBirth.line1||'' : '',
 			line2: savedPlayer.placeOfBirth ? savedPlayer.placeOfBirth.line2||'' : '',
 			city: savedPlayer.placeOfBirth ? savedPlayer.placeOfBirth.city||'' : '',
