@@ -4,18 +4,18 @@ import {Container, Row, Col, CardHeader, Form, FormInput, FormSelect, Button, Ca
 import http from "../../axios";
 import PageTitle from "../../components/common/PageTitle";
 import countries from "../../data/countries.json";
-import teamLevels from "../../data/teamLevels.json"
 
 const Edit = (props) => {
-	const [savedTeam, setSavedTeam] = useState({base: {}});
+	const [savedVenue, setSavedVenue] = useState({address: {}});
 
-	const [team, setTeam] = useState({
+	const [venue, setVenue] = useState({
 		name: '',
-		level: '',
-		dateOfFormation: ''
+		capacity: '',
+		end1: '',
+		end2: ''
 	});
 
-	const [base, setBase] = useState({
+	const [address, setAddress] = useState({
 		line1: '',
 		line2: '',
 		city: '',
@@ -25,32 +25,32 @@ const Edit = (props) => {
 	});
 
 	useEffect(() => {
-		getTeam().then(() => {
+		getVenue().then(() => {
 		}).catch(() => {
 		});
 	}, []);
 
 	useEffect(() => {
-		if(savedTeam.id) {
+		if(savedVenue.id) {
 			reset();
 		}
-	}, [savedTeam]);
+	}, [savedVenue]);
 
 	useEffect(() => {
-		if(team.id) {
+		if(venue.id) {
 		}
-	}, [team]);
+	}, [venue]);
 
 	useEffect(() => {
-		if(base.id) {
+		if(address.id) {
 		}
-	}, [base]);
+	}, [address]);
 
-	const getTeam = async () => {
+	const getVenue = async () => {
 		try {
-			let {data} = await http.get(`teams/${props.match.params.teamId}`);
+			let {data} = await http.get(`venues/${props.match.params.venueId}`);
 			if(data) {
-				setSavedTeam(data);
+				setSavedVenue(data);
 			} else {
 				props.history.push('/notfound');
 			}
@@ -59,47 +59,48 @@ const Edit = (props) => {
 		}
 	}
 
-	const updateBase = (e) => {
+	const updateAddress = (e) => {
 		let update            = {};
 		update[e.target.name] = e.target.value;
-		let updatedBase       = {...base, ...update}
-		setBase(updatedBase);
+		let updatedAddress    = {...address, ...update}
+		setAddress(updatedAddress);
 	}
 
-	const updateTeam = (e) => {
+	const updateVenue = (e) => {
 		let update            = {};
 		update[e.target.name] = e.target.value;
-		let updatedTeam       = {...team, ...update}
-		setTeam(updatedTeam);
+		let updatedVenue      = {...venue, ...update}
+		setVenue(updatedVenue);
 	}
 
 	const reset = () => {
-		setTeam({
-			id: savedTeam.id || '',
-			name: savedTeam.name || '',
-			dateOfFormation: savedTeam.dateOfFormation || '',
-			level: savedTeam.level || ''
+		setVenue({
+			id: savedVenue.id || '',
+			name: savedVenue.name || '',
+			capacity: savedVenue.capacity || '',
+			end1: savedVenue.end1 || '',
+			end2: savedVenue.end2 || ''
 		});
 
-		setBase({
-			id: savedTeam.base ? savedTeam.base.id : '',
-			line1: savedTeam.base ? savedTeam.base.line1 || '' : '',
-			line2: savedTeam.base ? savedTeam.base.line2 || '' : '',
-			city: savedTeam.base ? savedTeam.base.city || '' : '',
-			state: savedTeam.base ? savedTeam.base.state || '' : '',
-			country: savedTeam.base ? savedTeam.base.country || '' : '',
-			pincode: savedTeam.base ? savedTeam.base.pincode || '' : ''
+		setAddress({
+			id: savedVenue.address ? savedVenue.address.id : '',
+			line1: savedVenue.address ? savedVenue.address.line1 || '' : '',
+			line2: savedVenue.address ? savedVenue.address.line2 || '' : '',
+			city: savedVenue.address ? savedVenue.address.city || '' : '',
+			state: savedVenue.address ? savedVenue.address.state || '' : '',
+			country: savedVenue.address ? savedVenue.address.country || '' : '',
+			pincode: savedVenue.address ? savedVenue.address.pincode || '' : ''
 		});
 	}
 
-	const saveTeam = async () => {
+	const saveVenue = async () => {
 		try {
 			let payload = {
-				...team,
-				base
+				...venue,
+				address
 			}
-			let {data}  = await http.put(`teams/${props.match.params.teamId}`, payload);
-			props.history.push(`/teams/${data}`);
+			let {data}  = await http.put(`venues/${props.match.params.venueId}`, payload);
+			props.history.push(`/venues/${data}`);
 		} catch(e) {
 			console.error(e);
 		}
@@ -111,57 +112,63 @@ const Edit = (props) => {
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
-		await saveTeam();
+		await saveVenue();
 	}
 
 	return (<Container fluid className="main-content-container px-4">
 		<Row noGutters className="page-header py-4">
-			<PageTitle subtitle="Edit Team" md="12" className="ml-sm-auto mr-sm-auto"/>
+			<PageTitle subtitle="Edit Venue" md="12" className="ml-sm-auto mr-sm-auto"/>
 		</Row>
 		<Row>
 			<Col lg="12">
 				<Card small className="mb-4">
 					<CardHeader className="border-bottom">
-						<h6 className="m-0">Edit Team</h6>
+						<h6 className="m-0">Edit Venue</h6>
 					</CardHeader>
 					<CardBody>
 						<Form onSubmit={onSubmit}>
 							<Row form>
 								<Col md="4" className="form-group">
-									<label htmlFor="name">Team Name <span className="text-danger">*</span></label>
+									<label htmlFor="name">Venue Name <span className="text-danger">*</span></label>
 									<FormInput id="name"
 									           name="name"
 									           required
-									           placeholder="Team Name"
-									           value={team.name}
-									           onChange={updateTeam}/>
+									           placeholder="Venue Name"
+									           value={venue.name}
+									           onChange={updateVenue}/>
 								</Col>
 
-								<Col md="4" className="form-group">
-									<label htmlFor="level">Level<span className="text-danger">*</span></label>
-									<FormSelect id="level"
-									            name="level"
-									            required
-									            value={team.level}
-									            onChange={updateTeam}>
-										<option value={''}>Select Team Level</option>
-										{
-											teamLevels.map((teamLevel, index) => {
-												return (<option key={teamLevel.code + index} value={teamLevel.code}>{teamLevel.name}</option>)
-											})
-										}
-									</FormSelect>
+								<Col md="2" className="form-group">
+									<label htmlFor="capacity">Capacity</label>
+									<FormInput id="capacity"
+									           type="number"
+									           min="0"
+									           max="400000"
+									           step="1"
+									           name="capacity"
+									           placeholder="Capacity"
+									           value={venue.capacity}
+									           onChange={updateVenue}/>
 								</Col>
 
-								<Col md="4" className="form-group">
-									<label htmlFor="dateOfFormation">Date Of Formation <span className="text-danger">*</span></label>
-									<FormInput id="dateOfFormation"
-									           type="date"
-									           name="dateOfFormation"
+								<Col md="3" className="form-group">
+									<label htmlFor="end1">End 1 <span className="text-danger">*</span></label>
+									<FormInput id="end1"
+									           name="end1"
 									           required
-									           placeholder="Date Of Formation"
-									           value={team.dateOfFormation}
-									           onChange={updateTeam}/>
+									           placeholder="Venue End 1"
+									           value={venue.end1}
+									           onChange={updateVenue}/>
+								</Col>
+
+								<Col md="3" className="form-group">
+									<label htmlFor="end2">End 2 <span className="text-danger">*</span></label>
+									<FormInput id="end2"
+									           name="end2"
+									           required
+									           placeholder="Venue End 2"
+									           value={venue.end2}
+									           onChange={updateVenue}/>
 								</Col>
 							</Row>
 
@@ -173,8 +180,8 @@ const Edit = (props) => {
 									<FormInput id="line1"
 									           name="line1"
 									           placeholder="Address Line 1"
-									           value={base.line1}
-									           onChange={updateBase}/>
+									           value={address.line1}
+									           onChange={updateAddress}/>
 								</Col>
 
 								<Col md="6" className="form-group">
@@ -182,8 +189,8 @@ const Edit = (props) => {
 									<FormInput id="line2"
 									           name="line2"
 									           placeholder="Address Line 2"
-									           value={base.line2}
-									           onChange={updateBase}/>
+									           value={address.line2}
+									           onChange={updateAddress}/>
 								</Col>
 							</Row>
 
@@ -194,8 +201,8 @@ const Edit = (props) => {
 									           name="city"
 									           required
 									           placeholder="City"
-									           value={base.city}
-									           onChange={updateBase}/>
+									           value={address.city}
+									           onChange={updateAddress}/>
 								</Col>
 
 								<Col md="3" className="form-group">
@@ -204,17 +211,17 @@ const Edit = (props) => {
 									           name="state"
 									           required
 									           placeholder="State"
-									           value={base.state}
-									           onChange={updateBase}/>
+									           value={address.state}
+									           onChange={updateAddress}/>
 								</Col>
 
 								<Col md="3" className="form-group">
-									<label htmlFor="country">Country {base.country}<span className="text-danger">*</span></label>
+									<label htmlFor="country">Country {address.country}<span className="text-danger">*</span></label>
 									<FormSelect id="country"
 									            name="country"
 									            required
-									            value={base.country}
-									            onChange={updateBase}>
+									            value={address.country}
+									            onChange={updateAddress}>
 										<option value={''}>Select Country</option>
 										{
 											countries.map((country, index) => {
@@ -229,8 +236,8 @@ const Edit = (props) => {
 									<FormInput id="pincode"
 									           name="pincode"
 									           placeholder="Pin Code"
-									           value={base.pincode}
-									           onChange={updateBase}/>
+									           value={address.pincode}
+									           onChange={updateAddress}/>
 								</Col>
 							</Row>
 

@@ -19,6 +19,12 @@ export default function() {
 			htmlAfter: ""
 		},
 		{
+			title: "Venues",
+			to: "/venues",
+			htmlBefore: '<i class="material-icons">foundation</i>',
+			htmlAfter: ""
+		},
+		{
 			title: "Blog Posts",
 			htmlBefore: '<i class="material-icons">vertical_split</i>',
 			to: "/blog-posts",

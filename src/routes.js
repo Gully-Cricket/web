@@ -24,6 +24,11 @@ import TeamView from "./views/teams/View";
 import TeamAdd from "./views/teams/Add";
 import TeamEdit from "./views/teams/Edit";
 
+import VenueList from "./views/venues/List";
+import VenueAdd from "./views/venues/Add";
+import VenueView from "./views/venues/View";
+import VenueEdit from "./views/venues/Edit";
+
 export default [
 	{
 		path: "/",
@@ -80,6 +85,31 @@ export default [
 		exact: true,
 		layout: DefaultLayout,
 		component: TeamEdit
+	},
+
+	{
+		path: "/venues",
+		exact: true,
+		layout: DefaultLayout,
+		component: VenueList
+	},
+	{
+		path: "/venues/add",
+		exact: true,
+		layout: DefaultLayout,
+		component: VenueAdd
+	},
+	{
+		path: "/venues/:venueId",
+		exact: true,
+		layout: DefaultLayout,
+		component: VenueView
+	},
+	{
+		path: "/venues/:venueId/edit",
+		exact: true,
+		layout: DefaultLayout,
+		component: VenueEdit
 	},
 
 	{

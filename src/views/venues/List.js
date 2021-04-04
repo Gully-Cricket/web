@@ -6,24 +6,23 @@ import PageTitle from "../../components/common/PageTitle";
 import Pagination from "../../components/common/Pagination";
 import {Link} from "react-router-dom";
 import lookUp from "../../utils/lookUp";
-import teamLevels from "../../data/teamLevels.json";
 import countries from "../../data/countries.json";
 
-const teamList = () => {
-	const [teams, setTeams] = useState([]);
-	const [pager, setPager]     = useState({page: 0, perPage: 10});
-	const [total, setTotal]     = useState(0);
+const venueList = () => {
+	const [venues, setVenues] = useState([]);
+	const [pager, setPager]   = useState({page: 0, perPage: 10});
+	const [total, setTotal]   = useState(0);
 
 	useEffect(() => {
-		getTeams().then(r => {
+		getVenues().then(r => {
 		}).catch(e => {
 		});
 	}, [pager]);
 
-	const getTeams = async () => {
+	const getVenues = async () => {
 		try {
-			let {data} = await http.get(`teams`, {params: pager});
-			setTeams(data.content);
+			let {data} = await http.get(`venues`, {params: pager});
+			setVenues(data.content);
 			setTotal(data.totalElements);
 		} catch(e) {
 
@@ -33,7 +32,7 @@ const teamList = () => {
 	return (<Container fluid className="main-content-container px-4">
 		{/* Page Header */}
 		<Row noGutters className="page-header py-4">
-			<PageTitle sm="4" title="Teams" subtitle="List of teams" className="text-sm-left"/>
+			<PageTitle sm="4" title="Venues" subtitle="List of venues" className="text-sm-left"/>
 		</Row>
 
 		{/* Default Light Table */}
@@ -41,16 +40,16 @@ const teamList = () => {
 			<Col>
 				<Card small className="mb-4">
 					<CardHeader className="border-bottom d-flex justify-content-between">
-						<h5 className="m-0  ">Available teams</h5>
-						<Link to="/teams/add" theme="success" size="sm" className="btn btn-sm btn-success font-weight-bold" title="Add new team">
-							<i className="material-icons">health_and_safety</i> Add team
+						<h5 className="m-0  ">Available venues</h5>
+						<Link to="/venues/add" theme="success" size="sm" className="btn btn-sm btn-success font-weight-bold" title="Add new venue">
+							<i className="material-icons">health_and_safety</i> Add venue
 						</Link>
 					</CardHeader>
 
 					<CardBody className="p-0 pb-3">
 						<Alert className="mb-0 text-center"
-						       theme={teams.length > 0 ? "success" : "danger"}>
-							<i className="fa fa-info mx-2"/> teams loaded {teams.length}
+						       theme={venues.length > 0 ? "success" : "danger"}>
+							<i className="fa fa-info mx-2"/> venues loaded {venues.length}
 						</Alert>
 
 						<table className="table mb-0">
@@ -63,28 +62,30 @@ const teamList = () => {
 									Name
 								</th>
 								<th scope="col" className="border-0">
-									Base
+									Capacity
 								</th>
 								<th scope="col" className="border-0">
-									Level
+									Address
 								</th>
 								<th scope="col" className="border-0">
-									Date Of Formation
+									End 1
+								</th>
+								<th scope="col" className="border-0">
+									End 2
 								</th>
 							</tr>
 							</thead>
 							<tbody>
-							{teams.map(function(team) {
-								return <tr key={team.id}>
-									<td>{team.id}</td>
+							{venues.map(function(venue) {
+								return <tr key={venue.id}>
+									<td>{venue.id}</td>
 									<td>
-										<Link to={"/teams/" + team.id}>{team.name}</Link>
+										<Link to={"/venues/" + venue.id}>{venue.name}</Link>
 									</td>
-									<td>{team.base.city}, {lookUp(countries, "code", team.base.country, "name")}</td>
-									<td>{lookUp(teamLevels, "code", team.level, "name")}</td>
-									<td>
-										{team.dateOfFormation}
-									</td>
+									<td>{venue.capacity}</td>
+									<td>{venue.address.city}, {lookUp(countries, "code", venue.address.country, "name")}</td>
+									<td>{venue.end1}</td>
+									<td>{venue.end2}</td>
 								</tr>;
 							})}
 							</tbody>
@@ -103,4 +104,4 @@ const teamList = () => {
 	</Container>);
 };
 
-export default teamList;
+export default venueList;
