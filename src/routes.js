@@ -115,6 +115,7 @@ export default [
 	{
 		path: "/blog-overview",
 		layout: DefaultLayout,
+		noNavbar : true,
 		component: BlogOverview
 	},
 	{

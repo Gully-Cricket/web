@@ -9,7 +9,7 @@ const DateView = ({dateString}) => {
 
 	if(dateString) {
 		const d = new Date(dateString);
-		date = `${monthNames[d.getMonth()]} ${d.getDay()}, ${d.getFullYear()}` ;
+		date = `${monthNames[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}` ;
 	}
 
 	return (<span>{date}</span>)
